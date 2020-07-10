@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue/Vuex Tutorial - Components & Component Lifecycle Methods</title>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <h1>{{ greeting }}</h1>
+    <input v-model="email" :placeholder="placeholder" :class="{red: email.length < 2, green: email.length > 2}">
+    <button :disabled="email.length < 2" @click="addEmail">+ Add</button>
+    <h5>My Emails</h5>
+    <ul>
+        <li v-for="email in emails">{{ email | capitalise }}</li>
+    </ul>
+    <h5>Components</h5>
+    <list :emails="emails"/>
+</div>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.component('list', {
+    props: ['emails'],
+    template: `
+      <ul>
+        <li v-for="email in emails">{{ email }}</li>
+      </ul>
+      `
+  })
+  new Vue({
+    el: '#root',
+    component: [
+      'list'
+    ],
+    data: {
+      greeting: 'Methods',
+      placeholder: 'Email address',
+      email: '',
+      emails: [
+        'richard.skinner@gunpoderdigital.com',
+        'rskinner@werdigital.co.uk',
+        'richard.skinner@toolstation.nl'
+      ]
+    },
+    methods: {
+      addEmail: function () {
+        this.emails.push(this.email)
+        this.email = ''
+      }
+    },
+    filters: {
+      capitalise: function (value) {
+        return value.toUpperCase()
+      }
+    },
+    computed: {
+      validEmail: function () {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (re.test(this.email)) {
+          return `${this.email} <span class="green">VALID</span>`
+        } else {
+          return `${this.email} <span class="red">INVALID</span>`
+        }
+
+        return ''
+      }
+    },
+    created: function() {
+      console.log('CREATED');
+    },
+    mounted: function() {
+      console.log('MOUNTED');
+    },
+    updated: function() {
+      console.log('UPDATED');
+    },
+    destroyed: function() {
+      console.log('DESTROYED');
+    },
+  })
+</script>

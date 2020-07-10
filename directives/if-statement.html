@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue/Vuex Tutorial</title>
+</head>
+<body>
+<div id="root">
+    <div v-if="count === 0">
+        <h1>Hello</h1>
+    </div>
+    <div v-else-if="count === 1">
+        <h1>World</h1>
+    </div>
+    <div v-else="count === 2">
+        <h1>Hello World</h1>
+    </div>
+</div>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  new Vue({
+    el: '#root',
+    data: {
+      count: 0
+    }
+  })
+</script>

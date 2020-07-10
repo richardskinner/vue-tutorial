@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue/Vuex Tutorial - Directives</title>
+    <style>
+        .red {
+            border: 2px solid red;
+        }
+        .green {
+            color: 2px solid green;
+        }
+        .blue {
+            color: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <h1>{{ greeting }}</h1>
+    <ul>
+        <li>v-model</li>
+        <li>v-if v-else-if v-else</li>
+        <li>
+            v-bind
+            <ul>
+                <li>disabled</li>
+                <li>
+                    class
+                    <ul>
+                        <li>{} Object Syntax</li>
+                        <li>[] Array Syntax</li>
+                    </ul>
+                </li>
+                <li>placeholder</li>
+            </ul>
+        </li>
+        <li>v-html</li>
+        <li>v-once</li>
+        <li>v-loop</li>
+        <li>v-on</li>
+    </ul>
+    <p v-once="email"></p>
+    <p v-html="email"></p>
+    <input v-model="email" :placeholder="placeholder" :class="{red: email.length < 2}">
+    <button :disabled="email.length < 2" onclick="alert('Hello World!')">Submit</button>
+    <ul>
+        <li v-for="instruction in instructions">{{ instruction }}</li>
+    </ul>
+</div>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  new Vue({
+    el: '#root',
+    data: {
+      greeting: 'Directives',
+      placeholder: 'Email address',
+      email: '',
+      instructions: [
+        'Must be string',
+        'Must have an @ symbol',
+        'Must have a .com, .co.uk, .de, .fr, etc',
+        'Can not use symbols other than @.-[A-Z]'
+      ]
+    }
+  })
+</script>
